@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yanapat Khumpawong - Academic Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Mali & Kanit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Mali:ital,wght@0,400;0,600;0,700;1,500&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastel: {
+                            pink: '#FFB7B2',
+                            rose: '#FFDAC1',
+                            orange: '#FF9AA2',
+                            red: '#E05D5D',
+                            peach: '#FFF0F5',
+                            cream: '#FFF9F5',
+                            soft: '#FFECEC',
+                            text: '#4A3E3D'
+                        }
+                    },
+                    fontFamily: {
+                        mali: ['Mali', 'cursive'],
+                        kanit: ['Kanit', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-gentle': 'pulseGentle 2s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        pulseGentle: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.85' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            color: #5A4A42;
+            background-color: #FFFDF9;
+        }
+        .font-mali {
+            font-family: 'Mali', cursive;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF0F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFB7B2;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E05D5D;
+        }
+        .cute-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 2px solid #FFE4E1;
+            box-shadow: 0 10px 25px -5px rgba(255, 183, 178, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pastel-cream via-pastel-peach to-pastel-soft min-h-screen text-slate-700 selection:bg-pastel-pink selection:text-white">
+
+    <!-- Toast Notification for Copying -->
+    <div id="toast" class="fixed top-5 right-5 z-50 transform translate-y-[-100px] opacity-0 transition-all duration-300 bg-pastel-red text-white px-6 py-3 rounded-full shadow-lg flex items-center space-x-2 border-2 border-white">
+        <i class="fa-solid fa-circle-check text-yellow-200"></i>
+        <span id="toast-message" class="font-medium text-sm">คัดลอกข้อมูลเรียบร้อยแล้ว!</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-pastel-pink/30 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center space-x-2 group">
+                    <span class="w-9 h-9 rounded-full bg-gradient-to-tr from-pastel-orange to-pastel-pink flex items-center justify-center text-white font-mali font-bold text-lg shadow-md group-hover:scale-110 transition-transform">
+                        🌸
+                    </span>
+                    <span class="font-mali font-bold text-xl bg-gradient-to-r from-pastel-red to-orange-400 bg-clip-text text-transparent">
+                        Focus.Portfolio
+                    </span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 font-mali text-base">
+                    <a href="#hero" class="hover:text-pastel-red transition-colors py-1 px-3 rounded-full hover:bg-pastel-soft">หน้าหลัก</a>
+                    <a href="#about" class="hover:text-pastel-red transition-colors py-1 px-3 rounded-full hover:bg-pastel-soft">เกี่ยวกับฉัน</a>
+                    <a href="#education" class="hover:text-pastel-red transition-colors py-1 px-3 rounded-full hover:bg-pastel-soft">ประวัติการศึกษา</a>
+                    <a href="#skills" class="hover:text-pastel-red transition-colors py-1 px-3 rounded-full hover:bg-pastel-soft">ทักษะ & ความสนใจ</a>
+                    <a href="#contact" class="hover:text-pastel-red transition-colors py-1 px-3 rounded-full hover:bg-pastel-soft">การติดต่อ</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 hover:text-pastel-red hover:bg-pastel-soft focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 border-b border-pastel-pink/20 px-4 pt-2 pb-4 space-y-2 font-mali">
+            <a href="#hero" class="mobile-link block px-3 py-2 rounded-xl hover:bg-pastel-soft text-slate-700 hover:text-pastel-red">หน้าหลัก</a>
+            <a href="#about" class="mobile-link block px-3 py-2 rounded-xl hover:bg-pastel-soft text-slate-700 hover:text-pastel-red">เกี่ยวกับฉัน</a>
+            <a href="#education" class="mobile-link block px-3 py-2 rounded-xl hover:bg-pastel-soft text-slate-700 hover:text-pastel-red">ประวัติการศึกษา</a>
+            <a href="#skills" class="mobile-link block px-3 py-2 rounded-xl hover:bg-pastel-soft text-slate-700 hover:text-pastel-red">ทักษะ & ความสนใจ</a>
+            <a href="#contact" class="mobile-link block px-3 py-2 rounded-xl hover:bg-pastel-soft text-slate-700 hover:text-pastel-red">การติดต่อ</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative py-12 md:py-20 overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-10">
+                
+                <!-- Text Details -->
+                <div class="flex-1 text-center md:text-left space-y-6">
+                    <div class="inline-flex items-center space-x-2 bg-white/90 border border-pastel-pink/50 rounded-full px-4 py-1.5 shadow-sm animate-float">
+                        <span class="text-lg">✨</span>
+                        <span class="text-xs sm:text-sm font-medium text-pastel-red font-mali">ยินดีต้อนรับสู่ Academic Portfolio</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold font-mali text-slate-800 leading-tight">
+                        สวัสดีค่ะ, ฉันชื่อ <br class="hidden sm:inline"/>
+                        <span class="bg-gradient-to-r from-pastel-red via-orange-400 to-pink-500 bg-clip-text text-transparent">
+                            ญาณภัทร กุมภวงศ์
+                        </span> 
+                        <span class="text-2xl sm:text-3xl text-pastel-red font-semibold">(โฟกัส) 🎀</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
+                        นักศึกษาสาธารณสุขชุมชน ชั้นปีที่ 1 วิทยาลัยการสาธารณสุขสิรินธร จังหวัดขอนแก่น มุ่งมั่นพัฒนาศักยภาพด้านการสาธารณสุขและสร้างสรรค์สิ่งดีๆ ให้กับชุมชน
+                    </p>
+
+                    <!-- Quick Contact Buttons -->
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start pt-2">
+                        <a href="#contact" class="px-6 py-3 rounded-full bg-gradient-to-r from-pastel-red to-orange-400 text-white font-mali font-semibold shadow-lg shadow-pastel-red/30 hover:scale-105 active:scale-95 transition-transform flex items-center space-x-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>ติดต่องาน / สอบถาม</span>
+                        </a>
+                        <a href="#about" class="px-6 py-3 rounded-full bg-white text-pastel-red font-mali font-semibold border-2 border-pastel-pink hover:bg-pastel-soft hover:scale-105 active:scale-95 transition-all flex items-center space-x-2 shadow-sm">
+                            <i class="fa-solid fa-user"></i>
+                            <span>ทำความรู้จักเพิ่มเติม</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Image Card -->
+                <div class="relative flex-1 flex justify-center">
+                    <!-- Background Cute Decoration shapes -->
+                    <div class="absolute -top-6 -left-6 w-24 h-24 bg-pastel-pink/40 rounded-full blur-xl"></div>
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-orange-200/50 rounded-full blur-xl"></div>
+                    
+                    <div class="cute-card p-4 sm:p-6 rounded-3xl relative max-w-sm sm:max-w-md w-full transform rotate-1 hover:rotate-0 transition-transform duration-300">
+                        <div class="relative overflow-hidden rounded-2xl shadow-inner group">
+                            <!-- Image Fallback Handled via SVG styled container or Photo -->
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800" 
+                                 alt="ญาณภัทร กุมภวงศ์ (โฟกัส)" 
+                                 class="w-full h-80 sm:h-96 object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                 onerror="this.src='https://placehold.co/600x800/FFB7B2/FFF?text=Focus+Yanapat'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
+                            
+                            <div class="absolute bottom-4 left-4 right-4 text-white font-mali">
+                                <span class="bg-pastel-red/80 backdrop-blur-sm text-xs px-3 py-1 rounded-full text-white font-medium">
+                                    🎓 Public Health Student
+                                </span>
+                                <h3 class="text-xl font-bold mt-1">Focus Yanapat</h3>
+                            </div>
+                        </div>
+
+                        <!-- Badge Overlay -->
+                        <div class="absolute -bottom-4 -left-4 bg-white px-4 py-2 rounded-2xl shadow-md border border-pastel-pink flex items-center space-x-2">
+                            <span class="text-xl">🌸</span>
+                            <div>
+                                <p class="text-xs text-slate-400">อายุ</p>
+                                <p class="text-xs font-bold text-slate-700">18 ปี</p>
+                            </div>
+                        </div>
+
+                        <div class="absolute -top-3 -right-3 bg-white p-3 rounded-full shadow-md border border-pastel-pink text-pastel-red animate-bounce-slow">
+                            <i class="fa-solid fa-heart text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-16 bg-white/60">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-pastel-red font-mali font-semibold text-lg">🌷 About Me</span>
+                <h2 class="text-3xl font-bold font-mali text-slate-800 mt-1">ข้อมูลส่วนตัว & ครอบครัว</h2>
+                <div class="w-16 h-1 bg-pastel-red rounded-full mx-auto mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Personal Info Card -->
+                <div class="cute-card p-6 sm:p-8 rounded-3xl space-y-4 relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-pastel-rose/30 rounded-full blur-2xl"></div>
+                    <div class="flex items-center space-x-3 text-pastel-red font-mali text-xl font-bold">
+                        <div class="w-10 h-10 rounded-2xl bg-pastel-soft flex items-center justify-center">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+                        <h3>ข้อมูลส่วนตัว</h3>
+                    </div>
+
+                    <div class="space-y-3 font-kanit pt-2">
+                        <div class="flex justify-between border-b border-slate-100 pb-2">
+                            <span class="text-slate-500"><i class="fa-solid fa-user text-pastel-pink mr-2"></i>ชื่อ - สกุล</span>
+                            <span class="font-medium text-slate-800">ญาณภัทร กุมภวงศ์</span>
+                        </div>
+                        <div class="flex justify-between border-b border-slate-100 pb-2">
+                            <span class="text-slate-500"><i class="fa-solid fa-smile text-pastel-pink mr-2"></i>ชื่อเล่น</span>
+                            <span class="font-medium text-slate-800">โฟกัส</span>
+                        </div>
+                        <div class="flex justify-between border-b border-slate-100 pb-2">
+                            <span class="text-slate-500"><i class="fa-solid fa-cake-candles text-pastel-pink mr-2"></i>วัน-เดือน-ปีเกิด</span>
+                            <span class="font-medium text-slate-800">12 พฤษภาคม 2551</span>
+                        </div>
+                        <div class="flex justify-between border-b border-slate-100 pb-2">
+                            <span class="text-slate-500"><i class="fa-solid fa-hourglass-half text-pastel-pink mr-2"></i>อายุ</span>
+                            <span class="font-medium text-slate-800">18 ปี</span>
+                        </div>
+                        <div class="flex justify-between border-b border-slate-100 pb-2">
+                            <span class="text-slate-500"><i class="fa-solid fa-flag text-pastel-pink mr-2"></i>สัญชาติ / เชื้อชาติ</span>
+                            <span class="font-medium text-slate-800">ไทย / ไทย</span>
+                        </div>
+                        <div class="flex justify-between border-b border-slate-100 pb-2">
+                            <span class="text-slate-500"><i class="fa-solid fa-location-dot text-pastel-pink mr-2"></i>บ้านเกิด</span>
+                            <span class="font-medium text-slate-800">กาฬสินธุ์</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Family & Bio Card -->
+                <div class="space-y-6">
+                    <!-- Family Info Card -->
+                    <div class="cute-card p-6 rounded-3xl space-y-4">
+                        <div class="flex items-center space-x-3 text-pastel-red font-mali text-xl font-bold">
+                            <div class="w-10 h-10 rounded-2xl bg-pastel-soft flex items-center justify-center">
+                                <i class="fa-solid fa-house-chimney-heart"></i>
+                            </div>
+                            <h3>ข้อมูลครอบครัว</h3>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-kanit pt-2">
+                            <div class="p-3 bg-pastel-peach/50 rounded-2xl border border-pastel-pink/20">
+                                <p class="text-xs text-slate-400">บิดา</p>
+                                <p class="font-semibold text-slate-700">นายฐิติพงศ์ กุมภวงศ์</p>
+                                <p class="text-xs text-pastel-red mt-1"><i class="fa-solid fa-briefcase mr-1"></i>รับจ้างทั่วไป</p>
+                            </div>
+                            <div class="p-3 bg-pastel-peach/50 rounded-2xl border border-pastel-pink/20">
+                                <p class="text-xs text-slate-400">มารดา</p>
+                                <p class="font-semibold text-slate-700">นางกุลพิชญ์ ภูชะ</p>
+                                <p class="text-xs text-pastel-red mt-1"><i class="fa-solid fa-briefcase mr-1"></i>รับจ้างทั่วไป</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bio Intro -->
+                    <div class="cute-card p-6 rounded-3xl space-y-3 bg-gradient-to-r from-pastel-peach to-white">
+                        <div class="flex items-center space-x-2 text-pastel-red font-mali font-semibold">
+                            <i class="fa-solid fa-quote-left text-2xl"></i>
+                            <span>เกี่ยวกับฉัน (About)</span>
+                        </div>
+                        <p class="text-slate-600 leading-relaxed font-kanit text-sm sm:text-base">
+                            "ฉันชื่อ ญาณภัทร กุมภวงศ์ ปัจจุบันอายุ 18 ปี อาศัยอยู่ที่จังหวัดกาฬสินธุ์มาตั้งแต่เด็ก เป็นคนยิ้มง่าย อารมณ์ดี ชอบร้องเพลง และอ่านหนังสือในเวลาว่าง ปัจจุบันกำลังมุ่งมั่นตั้งใจศึกษาระดับปริญญาตรีในสายงานสาธารณสุขเพื่อดูแลสุขภาพของชุมชนค่ะ"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-pastel-red font-mali font-semibold text-lg">🎓 Education</span>
+                <h2 class="text-3xl font-bold font-mali text-slate-800 mt-1">ประวัติการศึกษา</h2>
+                <div class="w-16 h-1 bg-pastel-red rounded-full mx-auto mt-2"></div>
+            </div>
+
+            <!-- Timeline Card -->
+            <div class="max-w-3xl mx-auto">
+                <div class="cute-card p-6 sm:p-8 rounded-3xl relative overflow-hidden">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                        <!-- Icon Badge -->
+                        <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-pastel-red to-orange-400 flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-pastel-red/30 shrink-0">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="space-y-2">
+                            <div class="inline-block bg-pastel-soft text-pastel-red font-mali text-xs font-semibold px-3 py-1 rounded-full border border-pastel-pink/40">
+                                ปัจจุบัน (กำลังศึกษา)
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-slate-800 font-mali">
+                                ระดับปริญญาตรี (ชั้นปีที่ 1)
+                            </h3>
+                            <p class="text-pastel-red font-medium text-base sm:text-lg">
+                                คณะสาธารณสุขศาสตร์และสหเวชศาสตร์
+                            </p>
+                            <div class="space-y-1 text-slate-600 text-sm sm:text-base">
+                                <p><i class="fa-solid fa-book-bookmark text-pastel-pink mr-2"></i><strong>สาขา:</strong> สาธารณสุขชุมชน</p>
+                                <p><i class="fa-solid fa-building-columns text-pastel-pink mr-2"></i><strong>สถาบัน:</strong> วิทยาลัยการสาธารณสุขสิรินธร จังหวัดขอนแก่น</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Hobbies Section -->
+    <section id="skills" class="py-16 bg-white/60">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-pastel-red font-mali font-semibold text-lg">🎈 Talents & Interests</span>
+                <h2 class="text-3xl font-bold font-mali text-slate-800 mt-1">ทักษะ & ความสนใจ</h2>
+                <div class="w-16 h-1 bg-pastel-red rounded-full mx-auto mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Skill 1: Singing -->
+                <div class="cute-card p-6 rounded-3xl text-center space-y-3 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-16 h-16 rounded-full bg-pastel-peach mx-auto flex items-center justify-center text-pastel-red text-2xl shadow-inner">
+                        🎤
+                    </div>
+                    <h3 class="font-mali font-bold text-xl text-slate-800">การร้องเพลง</h3>
+                    <p class="text-xs text-slate-500 font-kanit">
+                        มีความสุขและผ่อนคลายทุกครั้งที่ได้เปล่งเสียงเพลง ถือเป็นกิจกรรมโปรดอันดับหนึ่ง
+                    </p>
+                    <div class="pt-2">
+                        <span class="bg-pastel-soft text-pastel-red text-xs px-3 py-1 rounded-full font-mali">Special Talent</span>
+                    </div>
+                </div>
+
+                <!-- Skill 2: Musical Instrument -->
+                <div class="cute-card p-6 rounded-3xl text-center space-y-3 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-16 h-16 rounded-full bg-pastel-peach mx-auto flex items-center justify-center text-pastel-red text-2xl shadow-inner">
+                        🎸
+                    </div>
+                    <h3 class="font-mali font-bold text-xl text-slate-800">เล่นเครื่องดนตรี</h3>
+                    <p class="text-xs text-slate-500 font-kanit">
+                        ชอบใช้เวลากับเสียงดนตรี เติมเต็มจินตนาการและความคิดสร้างสรรค์
+                    </p>
+                    <div class="pt-2">
+                        <span class="bg-pastel-soft text-pastel-red text-xs px-3 py-1 rounded-full font-mali">Special Talent</span>
+                    </div>
+                </div>
+
+                <!-- Skill 3: Reading -->
+                <div class="cute-card p-6 rounded-3xl text-center space-y-3 hover:-translate-y-2 transition-transform duration-300 sm:col-span-2 lg:col-span-1">
+                    <div class="w-16 h-16 rounded-full bg-pastel-peach mx-auto flex items-center justify-center text-pastel-red text-2xl shadow-inner">
+                        📚
+                    </div>
+                    <h3 class="font-mali font-bold text-xl text-slate-800">การอ่านหนังสือ</h3>
+                    <p class="text-xs text-slate-500 font-kanit">
+                        ชอบอ่านหนังสือเพื่อเปิดโลกทัศน์ ค้นหาความรู้ใหม่ๆ ทั้งเรื่องสุขภาพและวรรณกรรม
+                    </p>
+                    <div class="pt-2">
+                        <span class="bg-pastel-soft text-pastel-red text-xs px-3 py-1 rounded-full font-mali">Hobby & Passion</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-pastel-red font-mali font-semibold text-lg">💌 Contact Me</span>
+                <h2 class="text-3xl font-bold font-mali text-slate-800 mt-1">ช่องทางการติดต่อ</h2>
+                <p class="text-slate-500 text-sm mt-1">ยินดีที่ได้รู้จักและพร้อมร่วมงานหรือทำกิจกรรมต่างๆ ค่ะ</p>
+                <div class="w-16 h-1 bg-pastel-red rounded-full mx-auto mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <!-- Phone Card -->
+                <div class="cute-card p-6 rounded-3xl flex items-center justify-between group hover:border-pastel-red transition-all">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-green-400 to-emerald-500 text-white flex items-center justify-center text-2xl shadow-md">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 font-mali">เบอร์โทรศัพท์ (Phone)</p>
+                            <p class="font-bold text-slate-800 text-lg font-kanit">095-859-0337</p>
+                        </div>
+                    </div>
+                    <button onclick="copyToClipboard('0958590337', 'คัดลอกเบอร์โทรศัพท์แล้ว!')" 
+                            class="p-3 bg-pastel-soft hover:bg-pastel-red hover:text-white text-pastel-red rounded-2xl transition-colors" title="คัดลอกเบอร์โทร">
+                        <i class="fa-solid fa-copy"></i>
+                    </button>
+                </div>
+
+                <!-- Instagram Card -->
+                <a href="https://instagram.com/xfocus._q" target="_blank" rel="noopener noreferrer" 
+                   class="cute-card p-6 rounded-3xl flex items-center justify-between group hover:border-pastel-red transition-all">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 text-white flex items-center justify-center text-2xl shadow-md">
+                            <i class="fa-brands fa-instagram"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 font-mali">Instagram</p>
+                            <p class="font-bold text-slate-800 text-lg font-kanit">xfocus._q</p>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-pastel-soft group-hover:bg-pastel-red group-hover:text-white text-pastel-red rounded-2xl transition-colors">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-pastel-pink/30 py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center space-y-3">
+            <div class="flex justify-center items-center space-x-2">
+                <span class="text-xl">🌸</span>
+                <span class="font-mali font-bold text-lg bg-gradient-to-r from-pastel-red to-orange-400 bg-clip-text text-transparent">
+                    Focus Yanapat Portfolio
+                </span>
+            </div>
+            <p class="text-xs text-slate-400 font-kanit">
+                © 2026 Yanapat Khumpawong. Sirindhorn College of Public Health Khon Kaen. All rights reserved.
+            </p>
+            <p class="text-xs text-pastel-red font-mali">
+                Designed with <i class="fa-solid fa-heart text-xs text-red-400"></i> Cute Style
+            </p>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Copy to clipboard function
+        function copyToClipboard(text, message) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast(message);
+        }
+
+        // Custom Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            
+            toastMsg.innerText = message;
+            toast.classList.remove('translate-y-[-100px]', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-[-100px]', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
